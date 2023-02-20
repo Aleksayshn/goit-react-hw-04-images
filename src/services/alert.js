@@ -14,6 +14,11 @@ export const alertOnResolved = (imagesLength, totalImages, page) => {
   }
 };
 
-export const alertOnRejected = () => {
+export const alertOnRejected = () =>
   toast.error('Oooops! Something went wrong...');
-};
+
+export const alertOnEmptyQuery = () =>
+  toast.warning('Please, enter something to search...');
+
+export const alertOnRepeatedQuery = query =>
+  toast.warning(`We have already found <${query}>!`);

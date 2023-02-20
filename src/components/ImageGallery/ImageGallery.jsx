@@ -20,9 +20,10 @@ ImageGallery.propTypes = {
   images: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      tags: PropTypes.string.isRequired,
-      webformatURL: PropTypes.string.isRequired,
-      largeImageURL: PropTypes.string.isRequired,
+      alt: PropTypes.string.isRequired,
+      smallUrl: PropTypes.string.isRequired,
+      largeUrl: PropTypes.string.isRequired,
+      isScrollAnchor: PropTypes.bool.isRequired,
     }).isRequired
   ).isRequired,
 };

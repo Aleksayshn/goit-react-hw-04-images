@@ -14,7 +14,6 @@ import {
   LoadButton,
   TopButton,
 } from 'components';
-import { Container } from './App.styled';
 
 const Status = {
   IDLE: 'idle',
@@ -82,13 +81,13 @@ export const App = () => {
   const onTopBtnClick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <Container>
+    <>
       <Searchbar onSubmit={searchFormSubmit} />
       {!!images.length && <ImageGallery images={images} />}
       {status === Status.PENDING && <Loader />}
       {showLoadBtn && <LoadButton onClick={onLoadMoreBtnClick} />}
       {showTopBtn && <TopButton onClick={onTopBtnClick} />}
       <ToastContainer autoClose={2500} newestOnTop theme="colored" />
-    </Container>
+    </>
   );
 };

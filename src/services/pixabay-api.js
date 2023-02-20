@@ -1,32 +1,32 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://pixabay.com/api/';
+axios.defaults.baseURL = 'https://pixabay.com/api/';
 const API_KEY = '33749963-ca56a1f71992b6263ff0cd5ce';
+axios.defaults.params = {
+  key: API_KEY,
+  image_type: 'photo',
+  orientation: 'horizontal',
+  per_page: 12,
+};
 
-export const getImagesByQuery = async (query, page) => {
+export const getPixabayImages = async (query, page) => {
   const params = {
-    key: API_KEY,
     q: query,
-    image_type: 'photo',
-    orientation: 'horizontal',
     page,
-    per_page: 12,
   };
 
-  const { data, status } = await axios.get(BASE_URL, { params });
-  console.log(status);
-  if (status !== 200) {
-    throw new Error(`Bad response, ${status}`);
+  try {
+    const response = await axios.get('', { params });
+    const images = response.data.hits.map(({ id, tags, webformatURL, largeImageURL }, idx) => ({
+      id,
+      alt: tags || '',
+      smallUrl: webformatURL,
+      largeUrl: largeImageURL,
+      isScrollAnchor: !idx,
+    }));
+    console.log(images);
+    return { images, totalImages: response.data.totalHits };
+  } catch (error) {
+    throw new Error('Unable to get images from Pixabay API.');
   }
-  const images = data.hits.map(({ id, tags, webformatURL, largeImageURL }) => ({
-    id,
-    tags,
-    webformatURL,
-    largeImageURL,
-  }));
-
-
-  const totalImages = data.totalHits;
-
-  return { images, totalImages };
 };
